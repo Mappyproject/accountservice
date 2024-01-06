@@ -33,7 +33,10 @@ public class AccountController {
         sendJsonMessage(account);
         return accountService.save(account); }
     @PutMapping
-    public Account update(@RequestBody Account account) { return accountService.update(account); }
+    public Account update(@RequestBody Account account) {
+        sendJsonMessage(account);
+        return accountService.update(account);
+    }
     @DeleteMapping
     public void delete(@RequestBody Account account) { accountService.delete(account); }
 }

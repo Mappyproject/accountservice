@@ -2,6 +2,7 @@ package com.mappy.accountservice.consumer;
 
 import com.mappy.accountservice.dto.AccountDto;
 import com.mappy.accountservice.model.Account;
+import com.mappy.accountservice.publisher.RabbitMQJsonProducer;
 import com.mappy.accountservice.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ public class RabbitMQJsonConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQJsonConsumer.class);
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private RabbitMQJsonProducer jsonProducer;
 
     @RabbitListener(queues = {"${rabbitmq.queue.json.name}"})
     public void consumeJsonMessage(AccountDto accountDto) {
@@ -22,6 +25,6 @@ public class RabbitMQJsonConsumer {
     }
     public void saveAccountData(AccountDto accountDto) {
         Account account = new Account(accountDto.getName(), accountDto.getSurname(), accountDto.getPhoneNumber(), accountDto.getBirthDate());
-        accountService.save(account);
+        jsonProducer.sendJsonMessage(accountService.save(account));
     }
 }
