@@ -6,6 +6,10 @@ spring:
     name: ACCOUNT-SERVICE
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     service-url:
-      defaultZone : http://localhost:8761/eureka/
+      defaultZone : http://mappy_eurekaserver:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
