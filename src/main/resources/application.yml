@@ -7,9 +7,11 @@ spring:
 
 eureka:
   instance:
-    prefer-ip-address: true
+    preferIpAddress: true
+    hostname: eureka-0
   client:
-    service-url:
-      defaultZone : http://mappy-eureka:8761/eureka/
-    register-with-eureka: true
-    fetch-registry: true
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+            defaultZone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka
+#      defaultZone: http://mappy-eureka:8761/eureka
